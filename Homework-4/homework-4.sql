@@ -40,3 +40,11 @@ SHIPMENT_ID = '10-0001';
  HOMEWORK 4-2
  List all captains who were captains of shipments that left Boston on or after 2011
 */
+select  *
+from captain
+inner join shipment
+on shipment.CAPT_ID = captain.CAPT_ID
+where
+origin = 'BOSTON'
+and
+shipment_date > '01-JAN-11';
