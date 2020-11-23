@@ -1,4 +1,12 @@
 /*
+Alana Martin
+Homework 4
+CS 579 Database Management
+FAll 2020
+Professor Russo
+*/
+
+/*
  HOMEWORK 4-1
  List all shipments that contained Building Materials, arrived in London and had either Cliff Walker or John Smith as the captain.
 */
@@ -95,3 +103,34 @@ on SHIPMENT_LINE.ITEM_NO = ITEM.ITEM_NO
 where ITEM.DESCRIPTION = 'Rice'
 ;
 
+
+/*
+Homework 4-6
+List all captains who were captains of ships that carried rice. The captain may not
+necessarily been the captain of the shipment that carried the rice
+*/
+select CAPTAIN.CAPT_ID, CAPTAIN.FNAME, CAPTAIN.LNAME
+FROM CAPTAIN
+INNER JOIN SHIPMENT
+on SHIPMENT.CAPT_ID = CAPTAIN.CAPT_ID
+where
+SHIPMENT.SHIP_NO = (
+  select distinct SHIP.SHIP_NO
+    from SHIP
+    inner join SHIPMENT
+    on SHIP.SHIP_NO = SHIPMENT.SHIP_NO
+    inner join SHIPMENT_LINE
+    on SHIPMENT_LINE.SHIPMENT_ID = SHIPMENT.SHIPMENT_ID
+    inner join ITEM
+    on SHIPMENT_LINE.ITEM_NO = ITEM.ITEM_NO
+  where ITEM.DESCRIPTION = 'Rice'
+);
+/*
+Homework 4-7
+For each origin, display the origin as well as the number of unique captains who have
+been captains of shipments which left that port.
+*/
+select  origin, count ( distinct capt_id )
+from shipment
+group by ORIGIN
+;
