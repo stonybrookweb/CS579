@@ -79,3 +79,19 @@ on SHIPMENT_LINE.ITEM_NO = ITEM.ITEM_NO
 where ITEM.DESCRIPTION = 'Rice'
 ;
 
+/*
+Homework 4-5
+List all captains who were captains of shipments that carried rice
+*/
+
+select distinct CAPTAIN.CAPT_ID, CAPTAIN.FNAME, CAPTAIN.LNAME
+from CAPTAIN
+inner join SHIPMENT
+on SHIPMENT.CAPT_ID = CAPTAIN.CAPT_ID
+inner join SHIPMENT_LINE
+on SHIPMENT_LINE.SHIPMENT_ID = SHIPMENT.SHIPMENT_ID
+inner join ITEM
+on SHIPMENT_LINE.ITEM_NO = ITEM.ITEM_NO
+where ITEM.DESCRIPTION = 'Rice'
+;
+
