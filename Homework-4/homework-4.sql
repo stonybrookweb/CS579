@@ -48,3 +48,34 @@ where
 origin = 'BOSTON'
 and
 shipment_date > '01-JAN-11';
+
+/*
+ HOMEWORK 4-3
+List all items shipped out of Seattle as well as the weight of each item
+ */
+select distinct item.item_no, item.description, item.weight
+from item
+inner join SHIPMENT_LINE
+on SHIPMENT_LINE.ITEM_NO = item.ITEM_NO
+inner join SHIPMENT
+on SHIPMENT_LINE.SHIPMENT_ID = SHIPMENT.SHIPMENT_ID
+where
+SHIPMENT.ORIGIN = 'SEATTLE'
+;
+
+/*
+Homework 4-4
+List all ships that have ever carried rice.
+*/
+
+select distinct SHIP.SHIP_NO, SHIP.CLASS, SHIP.CAPACITY, SHIP.PURCH_DATE, MANUFACTURER_ID
+from SHIP
+inner join SHIPMENT
+on SHIP.SHIP_NO = SHIPMENT.SHIP_NO
+inner join SHIPMENT_LINE
+on SHIPMENT_LINE.SHIPMENT_ID = SHIPMENT.SHIPMENT_ID
+inner join ITEM
+on SHIPMENT_LINE.ITEM_NO = ITEM.ITEM_NO
+where ITEM.DESCRIPTION = 'Rice'
+;
+
